@@ -8,13 +8,6 @@ pokeApi
     // Creating cards
     let results = data.results;
     showPokemons(results);
-    //QUIERO CREAR UN ARREGLO DE TODOS LOS BUTONES PARA AGREGARLES UN ADDEVENT LISTENER QUE ME DEJE
-    // AGREGAR CLASE HIDE / SHOW MODAL Y SCROLL UP.... EN VEZ DEL CLICK
-    // DOESN'T WORK
-    let btns = document.getElementsByClassName("pokeButton");
-    console.log(btns);
-    const newArray = Array.from(btns);
-    console.log(newArray);
   })
   .catch((err) => console.log(err.message));
 
@@ -90,5 +83,7 @@ function showModal(el) {
         e.preventDefault();
         modalWindow.remove();
       });
+      //MODAL BOXES count
+      console.log("This is a modal box: ", modalWindow);
     });
 }
