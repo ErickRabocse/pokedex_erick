@@ -1,0 +1,225 @@
+/* RESET */
+*,
+*::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* VARIABLES */
+:root {
+  --header-font-family: "Press Start 2P", cursive;
+  --text-font-family: "Saira Semi Condensed", sans-serif;
+}
+
+/* GENERAL */
+body {
+  font-family: var(--text-font-family);
+}
+h1 {
+  font-family: var(--header-font-family);
+  margin-bottom: 10px;
+}
+input,
+button {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+.search {
+  display: flex;
+  flex-direction: column;
+}
+.name {
+  margin-bottom: 10px;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 80px;
+  position: relative;
+  width: 100vw;
+  height: 300px;
+  overflow: hidden;
+  /* background-color: #cdedfd;
+  background-image: linear-gradient(
+    319deg,
+    #cdedfd 0%,
+    #ffec82 37%,
+    #ffcfd2 100%
+  ); */
+
+  background: hsla(339, 100%, 55%, 1);
+
+  background: linear-gradient(
+    90deg,
+    hsla(339, 100%, 55%, 1) 0%,
+    rgb(255, 255, 255) 100%
+  );
+
+  background: -moz-linear-gradient(
+    90deg,
+    hsla(339, 100%, 55%, 1) 0%,
+    rgb(255, 255, 255) 100%
+  );
+
+  background: -webkit-linear-gradient(
+    90deg,
+    hsla(339, 100%, 55%, 1) 0%,
+    rgb(255, 255, 255) 100%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FF1B6B", endColorstr="#45CAFF", GradientType=1 );
+}
+
+/* WATER WAVE BACKGROUND ANIMATION */
+header .wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-image: url(./img/wave.png);
+  background-size: 1000px 100px;
+}
+header .wave.wave1 {
+  animation: animate 10s linear infinite;
+  z-index: 1000;
+  opacity: 1;
+  animation-delay: 0s;
+  bottom: 0;
+}
+@keyframes animate {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: 1000px;
+  }
+}
+
+header .wave.wave2 {
+  animation: animate2 15s linear infinite;
+  z-index: 999;
+  opacity: 0.5;
+  animation-delay: -5s;
+  bottom: 10px;
+}
+@keyframes animate2 {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: -1000px;
+  }
+}
+
+header .wave.wave3 {
+  animation: animate3 10s linear infinite;
+  z-index: 998;
+  opacity: 0.2;
+  animation-delay: -2s;
+  bottom: 15px;
+}
+@keyframes animate3 {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: -1000px;
+  }
+}
+
+header .wave.wave4 {
+  animation: animate4 11s linear infinite;
+  z-index: 997;
+  opacity: 0.7;
+  animation-delay: -5s;
+  bottom: 20px;
+}
+@keyframes animate4 {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: -1000px;
+  }
+}
+
+/* POKEMON GRID CONTAINER */
+.pokemons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  margin: 10px;
+}
+
+/* POKEMONS CARDS */
+.card_container {
+  width: 120px;
+  height: 170px;
+  border: 1px solid grey;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10px;
+}
+
+/* MODAL STYLES */
+.modal {
+  display: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  display: flex;
+  /* opacity: 0;
+  pointer-events: none; */
+}
+.modal--hide {
+  /* opacity: 1;
+  pointer-events: unset; */
+  /* opacity: 0;
+  pointer-events: none; */
+  display: none;
+  background-color: pink;
+}
+.modal_container {
+  margin: auto;
+  width: 90%;
+  max-width: 550px;
+  background-color: white;
+  border: 2px solid silver;
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin: 1rem auto;
+  display: grid;
+  gap: 0.2rem;
+}
+.modal_img {
+  margin: 0 auto;
+}
+.modal_close {
+  text-decoration: none;
+  color: white;
+  background-color: silver;
+  font-weight: 300px;
+  font-size: 1.2rem;
+  width: 100px;
+  text-align: center;
+  margin: 10px auto;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0.2rem;
+}
+.modal_close:hover {
+  background-color: white;
+  color: silver;
+  outline: 2px solid silver;
+  font-weight: 600;
+}
