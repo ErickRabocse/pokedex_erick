@@ -20,6 +20,7 @@ const showPokemons = (results) => {
       .then((data) => {
         let pokemonName = element.name;
         let pokeTypes = data.types[0].type.name;
+        let pokeOrder = data.order;
         let pokeformURL = fetch(
           `https://pokeapi.co/api/v2/pokemon-form/${index + 1}/`
         );
@@ -33,6 +34,7 @@ const showPokemons = (results) => {
               pokemonName.substring(0, 1).toUpperCase() +
               pokemonName.substring(1)
             }</button>
+              <p>Order: ${pokeOrder}</p>
               <p>Type: ${pokeTypes}</p>
               <img src="${pokeForm}"/>
             </div>
@@ -40,19 +42,67 @@ const showPokemons = (results) => {
           });
       });
   });
+
+  // FILTER POKEMONS
+  const inputName = document.querySelector(".input_search_name");
+  const findBtn = document.querySelector(".search_name");
+
+  const filterPokemons = () => {
+    const inputPokeName = inputName.value.toLowerCase();
+    results.filter((el, index) => {
+      if (inputPokeName === el.name.toLowerCase()) {
+        console.log(el.url);
+        console.log("found it");
+        pokemonsSection.innerHTML = "";
+        //INSERT POKEMON
+        let pokeURL = fetch(`${el.url}`);
+        pokeURL
+          .then((results) => results.json())
+          .then((data) => {
+            console.log(data);
+            //CREATE POKEMON CARD
+            let pokemonName = data.name;
+            let pokeTypes = data.types[0].type.name;
+            let pokeOrder = data.order;
+            let pokeForm = data.sprites.front_default;
+            pokemonsSection.innerHTML += `
+            <div class="card_container" id="card_box">
+              <button class="pokeButton" id="${index}" onclick="showModal(this)" >${
+              pokemonName.substring(0, 1).toUpperCase() +
+              pokemonName.substring(1)
+            }</button>
+              <p>Order: ${pokeOrder}</p>
+              <p>Type: ${pokeTypes}</p>
+              <img src="${pokeForm}"/>
+            </div>
+            `;
+          });
+        //BUTTON TOGGLE TO SHOW ALL POKEMONS AGAIN
+        findBtn.innerText = "Show all";
+        findBtn.style.backgroundColor = "red";
+        findBtn.style.color = "white";
+        findBtn.addEventListener("click", function () {
+          console.log("Hi", pokemonsSection.innerHTML);
+          window.location.reload(true);
+        });
+      }
+    });
+  };
+
+  findBtn.addEventListener("click", filterPokemons);
 };
 
 function showModal(el) {
+  console.log("hi");
+  console.log("this is el: ", el);
   let id = el.id;
   fetch(`https://pokeapi.co/api/v2/pokemon/${Number(id) + 1}/`)
     .then((res) => res.json())
     .then((data) => {
-      // console.log("this is the data: ", data);
       let pokeMoves = data.moves;
       let arrayOfMoves = Array.from(pokeMoves);
       let showMoves = "";
       arrayOfMoves.forEach((move) => {
-        // console.log(move.move.name);
         showMoves += `${move.move.name} | `;
       });
 
@@ -61,6 +111,7 @@ function showModal(el) {
     <div class="modal_container">
       <img src="${data.sprites.front_default}" class="modal_img" width="250">
       <p class="modal_name"><strong>NAME:</strong> ${data.name}</p>
+      <p class="modal_order"><strong>ORDER:</strong> ${data.order}</p>
       <p class="modal_type"><strong>TYPE:</strong> ${
         data.types[0].type.name
       }</p>
@@ -72,7 +123,6 @@ function showModal(el) {
     </div>
   </section>
   `;
-      // pokemonsSection.innerHTML = modalBox;
       pokemonsSection.insertAdjacentHTML("beforebegin", modalBox);
       //scrolls to the top of the site
       window.scrollTo(0, 0);
@@ -83,7 +133,5 @@ function showModal(el) {
         e.preventDefault();
         modalWindow.remove();
       });
-      //MODAL BOXES count
-      console.log("This is a modal box: ", modalWindow);
     });
 }

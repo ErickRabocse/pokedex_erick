@@ -191,10 +191,10 @@ header .wave.wave4 {
   color: white;
   background-color: var(--buttons);
   font-weight: 300px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   width: 110px;
   text-align: center;
-  margin: 10px 0;
+  margin: 10px 0px 0px 0px;
   border-radius: 10px;
   cursor: pointer;
   padding: 0.2rem;
