@@ -47,7 +47,7 @@ const showPokemons = (results) => {
   const inputName = document.querySelector(".input_search_name");
   const findBtn = document.querySelector(".search_name");
 
-  const filterPokemons = () => {
+  const filterPokemon = () => {
     const inputPokeName = inputName.value.toLowerCase();
     results.filter((el, index) => {
       if (inputPokeName === el.name.toLowerCase()) {
@@ -78,20 +78,64 @@ const showPokemons = (results) => {
             `;
           });
         //BUTTON TOGGLE TO SHOW ALL POKEMONS AGAIN
+        inputName.value = "";
         findBtn.innerText = "Show all";
         findBtn.style.backgroundColor = "red";
         findBtn.style.color = "white";
         findBtn.addEventListener("click", function () {
-          console.log("Hi", pokemonsSection.innerHTML);
           window.location.reload(true);
         });
       }
     });
   };
+  findBtn.addEventListener("click", filterPokemon);
 
-  findBtn.addEventListener("click", filterPokemons);
+  //FILTER TYPES
+  const inputType = document.querySelector(".input_search_type");
+  const typeBtn = document.querySelector(".search_type");
+
+  const filterType = () => {
+    const inputPokeType = inputType.value.toLowerCase();
+    results.filter((el, index) => {
+      console.log("This is el: ", el);
+      console.log(el.url);
+      console.log("found it");
+      pokemonsSection.innerHTML = "";
+      //INSERT POKEMON
+      let pokeURL = fetch(`${el.url}`);
+      pokeURL
+        .then((results) => results.json())
+        .then((data) => {
+          //CHECKING IF THE POKEMON TYPE MATCHES THE SEARCH
+          if (inputPokeType !== data.types[0].type.name) {
+            return;
+          } else if (inputPokeType === data.types[0].type.name) {
+            //CREATE POKEMON CARD
+            let pokemonName = data.name;
+            let pokeTypes = data.types[0].type.name;
+            let pokeOrder = data.order;
+            let pokeForm = data.sprites.front_default;
+            pokemonsSection.innerHTML += `
+            <div class="card_container" id="card_box">
+              <button class="pokeButton" id="${index}" onclick="showModal(this)" >${
+              pokemonName.substring(0, 1).toUpperCase() +
+              pokemonName.substring(1)
+            }</button>
+              <p>Order: ${pokeOrder}</p>
+              <p>Type: ${pokeTypes}</p>
+              <img src="${pokeForm}"/>
+            </div>
+            `;
+          }
+        });
+      //CLEARING INPUT TYPE (NO TOGGLE BUTTON)
+      inputType.value = "";
+    });
+  };
+  typeBtn.addEventListener("click", filterType);
 };
 
+//* * *  DISPLAYS MODALS * * *
 function showModal(el) {
   console.log("hi");
   console.log("this is el: ", el);
