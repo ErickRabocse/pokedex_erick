@@ -1,5 +1,6 @@
 // buscador de pokemones --> filtrar por nombre.
 /* * *  POKEAPI * * */
+let showAllBtn = document.querySelector(".showAllBtn");
 let pokemonsSection = document.querySelector(".pokemons");
 const pokeApi = fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151");
 pokeApi
@@ -79,10 +80,7 @@ const showPokemons = (results) => {
           });
         //BUTTON TOGGLE TO SHOW ALL POKEMONS AGAIN
         inputName.value = "";
-        findBtn.innerText = "Show all";
-        findBtn.style.backgroundColor = "red";
-        findBtn.style.color = "white";
-        findBtn.addEventListener("click", function () {
+        showAllBtn.addEventListener("click", function () {
           window.location.reload(true);
         });
       }
@@ -96,7 +94,7 @@ const showPokemons = (results) => {
 
   const filterType = () => {
     const inputPokeType = inputType.value.toLowerCase();
-    results.filter((el, index) => {
+    results.forEach((el, index) => {
       console.log("This is el: ", el);
       console.log(el.url);
       console.log("found it");
@@ -128,8 +126,13 @@ const showPokemons = (results) => {
             `;
           }
         });
-      //CLEARING INPUT TYPE (NO TOGGLE BUTTON)
+      //CLEARING INPUT TYPE
       inputType.value = "";
+      //BUTTON TOGGLE TO SHOW ALL POKEMONS AGAIN
+      inputName.value = "";
+      showAllBtn.addEventListener("click", function () {
+        window.location.reload(true);
+      });
     });
   };
   typeBtn.addEventListener("click", filterType);

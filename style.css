@@ -227,6 +227,26 @@ header .wave.wave4 {
   outline: 1px solid var(--buttons);
   font-weight: 400;
 }
+/* SHOW ALL BUTTON */
+.showAllBtn {
+  text-decoration: none;
+  color: white;
+  background-color: hsla(196, 64%, 37%, 1);
+  font-weight: 200px;
+  font-size: 1.1rem;
+  width: 120px;
+  text-align: center;
+  margin: 6px auto;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0.3rem;
+}
+.showAllBtn:hover {
+  background-color: white;
+  color: hsla(196, 64%, 37%, 1);
+  outline: 1px solid hsla(196, 64%, 37%, 1);
+  font-weight: 400;
+}
 /* INPUT */
 .input_search_type,
 .input_search_name {
