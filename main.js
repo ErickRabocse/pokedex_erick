@@ -78,7 +78,7 @@ const showPokemons = (results) => {
             </div>
             `;
           });
-        //BUTTON TOGGLE TO SHOW ALL POKEMONS AGAIN
+        //BUTTON TO SHOW ALL POKEMONS AGAIN
         inputName.value = "";
         showAllBtn.addEventListener("click", function () {
           window.location.reload(true);
@@ -140,8 +140,6 @@ const showPokemons = (results) => {
 
 //* * *  DISPLAYS MODALS * * *
 function showModal(el) {
-  console.log("hi");
-  console.log("this is el: ", el);
   let id = el.id;
   fetch(`https://pokeapi.co/api/v2/pokemon/${Number(id) + 1}/`)
     .then((res) => res.json())
@@ -154,7 +152,7 @@ function showModal(el) {
       });
 
       let modalBox = `
-  <section class="modal">
+  <dialog open>
     <div class="modal_container">
       <img src="${data.sprites.front_default}" class="modal_img" width="250">
       <p class="modal_name"><strong>NAME:</strong> ${data.name}</p>
@@ -166,19 +164,14 @@ function showModal(el) {
               data.weight
             )}</p>
       <p class="modal_moves"><strong>MOVES:</strong> ${showMoves}</p>
-      <a href="#" class="modal_close">Close</a>
+      <form method="dialog">
+        <button class="modal_close">Close</button>
+      </form>
     </div>
-  </section>
+  </dialog>
   `;
       pokemonsSection.insertAdjacentHTML("beforebegin", modalBox);
       //scrolls to the top of the site
       window.scrollTo(0, 0);
-      //close btn
-      const closeBtn = document.querySelector(".modal_close");
-      const modalWindow = document.querySelector(".modal");
-      closeBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        modalWindow.remove();
-      });
     });
 }
